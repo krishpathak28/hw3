@@ -85,6 +85,23 @@ Node* llfilter(Node* head, Comp pred)
     //*********************************************
 
 
+    //base case
+    if (head == NULL) {
+        return NULL;
+    }
+
+    // Phase 2 & 3: The Removal Case (Predicate is True)
+    if (pred(head->val)) {
+        Node* nextNode = head->next;
+        delete head;
+        return llfilter(nextNode, pred);
+    } 
+    
+    // Phase 4: The Keep Case (Predicate is False)
+    else {
+        head->next = llfilter(head->next, pred);
+        return head;
+    }
 }
 
 #endif
